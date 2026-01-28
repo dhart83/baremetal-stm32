@@ -39,10 +39,20 @@ $(BUILD)/main.o: $(SRC_DIR)/main.c | $(BUILD)
 # Link
 $(BUILD)/$(TARGET).elf: $(OBJS)
 	$(LD) $(LDFLAGS) $^ -o $@
-	$(SIZE) $@
+
+# Binary
+bin: $(BUILD)/$(TARGET).elf
+	$(OBJCOPY) -O binary $< $(BUILD)/$(TARGET).bin
+
+# Hex
+hex: $(BUILD)/$(TARGET).elf
+	$(OBJCOPY) -O ihex $< $(BUILD)/$(TARGET).hex
+
+size: $(BUILD)/$(TARGET).elf
+	$(SIZE) $<
 
 # Clean
 clean:
 	rm -rf $(BUILD)
 
-.PHONY: all clean
+.PHONY: all clean bin hex size
