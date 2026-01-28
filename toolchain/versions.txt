@@ -1,0 +1,30 @@
+# Toolchain Versions
+#
+# These versions are verified and known to work for the
+# NUCLEO-F411RE bring-up on this system.
+#
+# Newer versions may work but should be validated and
+# documented here before updating.
+
+GNU Arm Embedded Toolchain:
+  arm-none-eabi-gcc 13.2.1 (20231009)
+  arm-none-eabi-binutils 2.42
+
+Debugger:
+  gdb-multiarch 15.0.50.20240403-git
+  (Used in place of arm-none-eabi-gdb on Ubuntu/WSL)
+
+OpenOCD:
+  OpenOCD 0.12.0
+
+Build System:
+  GNU Make 4.3
+
+Host Environment:
+  Linux (Ubuntu / WSL2)
+  Tools installed via system packages in /usr/bin
+
+Target Hardware:
+  Board: NUCLEO-F411RE
+  MCU: STM32F411RE
+  Debug Interface: On-board ST-LINK/V2-1
