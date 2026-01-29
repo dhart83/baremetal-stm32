@@ -7,6 +7,9 @@ LD      := arm-none-eabi-gcc
 OBJCOPY := arm-none-eabi-objcopy
 SIZE    := arm-none-eabi-size
 
+# Debug
+GDB 	:= gdb-multiarch
+
 # Target
 TARGET  := minimal
 BUILD   := build
@@ -51,8 +54,16 @@ hex: $(BUILD)/$(TARGET).elf
 size: $(BUILD)/$(TARGET).elf
 	$(SIZE) $<
 
+# NOTE: OpenOCD must already be running in another terminal
+#		for gdb to work
+#
+# 	openocd -f interface/stlink.cfg -f target/stm32f4x.cfg
+#
+gdb: $(BUILD)/$(TARGET).elf
+	$(GDB) $<
+
 # Clean
 clean:
 	rm -rf $(BUILD)
 
-.PHONY: all clean bin hex size
+.PHONY: all clean bin hex size gdb

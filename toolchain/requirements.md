@@ -14,6 +14,50 @@ intentionally pinned and documented.
 - **Shell:** bash or compatible
 - **USB Access:** Required for ST-LINK
 
+### WSL2 USB Passthrough (ST-LINK)
+
+When using WSL2, USB devices are not accessible by default.
+To use OpenOCD with the on-board ST-LINK, USB passthrough must be configured
+from the Windows host.
+
+This project, assumes USB passthrough is available when running under WSL2.
+
+**Requirements (Windows host):**
+
+- Windows 11
+- WSL2 enabled
+- `usbipd-win` installed
+
+**Install usbipd (PowerShell, Admin):**
+
+```powershell
+winget install --id=Microsoft.usbipd
+```
+
+**Attach ST-LINK device to WSL2:**
+
+```powershell
+usbipd list
+usbipd attach --wsl --busid <BUSID>
+```
+
+If attach fails, bind the device first
+
+```powershell
+usbipd bind --busid <BUSID>
+usbipd attach --wsl --busid <BUSID>
+```
+
+**Verify in WSL:**
+
+```bash
+lsusb
+```
+
+The ST-LINK device should appear in the USB device list.
+
+Once attached, OpenOCD can access the target normally.
+
 ---
 
 ## Required Tools
