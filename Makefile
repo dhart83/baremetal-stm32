@@ -11,18 +11,22 @@ SIZE    := arm-none-eabi-size
 GDB 	:= gdb-multiarch
 
 # Target
-TARGET  := minimal
-BUILD   := build
-SRC_DIR := apps/minimal
+TARGET		:= minimal
+BUILD   	:= build
+SRC_DIR 	:= apps/minimal
+LDSCRIPT 	:= boards/nucleo_f411re/linker.ld
+MAPFILE		:= $(BUILD)/$(TARGET).map
 
 # Architecture
 CPU     := cortex-m4
 CFLAGS  := -mcpu=$(CPU) -mthumb -O0 -g
 CFLAGS  += -ffreestanding -fno-builtin
-CFLAGS  += -Wall -Wextra
+CFLAGS	+= -Wall -Wextra
 
 LDFLAGS := -mcpu=$(CPU) -mthumb
 LDFLAGS += -nostdlib
+LDFLAGS += -T $(LDSCRIPT)
+LDFLAGS += -Wl,-Map=$(MAPFILE)
 
 # Sources
 SRCS := $(SRC_DIR)/main.c
